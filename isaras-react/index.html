@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I, Saras — AI UPSC Mentor</title>
+
+    <link rel="icon" type="image/svg+xml" href="/img-isaras/isaras-bm.svg" />
+
+    <!-- Fonts (matching static site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="font"
+      href="/fonts/Inter-Tight.woff2"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Main stylesheet from static site -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    
+    <!-- Inline styles from static site -->
+    <style>
+      /* enable smooth behavior for programmatic scrolls and browsers that support it */
+      html { scroll-behavior: smooth; }
+      /*
+      Make all anchor targets respect the header height.
+      This uses the --header-offset variable (set by JS below).
+      */
+      [id] {
+      /* ensure a tiny extra gap so the heading is not glued to the header */
+      scroll-margin-top: calc(var(--header-offset, 0px) + 20px);
+      }
+      /* GPU ACCELERATION FIX */
+      .cta-gradient,
+      [data-ns-animate],
+      .fixed,
+      .sticky,
+      .header-one {
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+      }
+
+      /* Prevent layout shifts on scroll */
+      html, body {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* DON'T apply will-change to many elements at once.
+         Only enable on the few elements that actually need it. */
+      .cta-gradient,
+      .header-one,
+      .fixed,
+      .sticky { 
+        /* keep any single element optimizations; avoid setting will-change globally */
+        will-change: transform, opacity;
+      }
+
+      /* Avoid forcing layer creation on many small elements */
+      /* remove global translateZ hacks on many selectors if present in your CSS */
+      /* ensure images use object-fit and aren't causing layout thrashing */
+      img { display: block; max-width: 100%; height: auto; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Vendor scripts and main.js from original static site -->
+    <script src="/vendor/swiper.min.js"></script>
+    <script src="/vendor/leaflet.min.js"></script>
+    <script src="/vendor/vanilla-infinite-marquee.min.js"></script>
+    <script src="/vendor/split-text.min.js"></script>
+    <script src="/vendor/gsap.min.js"></script>
+    <script src="/vendor/scroll-trigger.min.js"></script>
+    <script src="/vendor/draw-svg.min.js"></script>
+    <script src="/vendor/scroll-trigger.min.js"></script>
+    <script src="/vendor/motionpathplugin.min.js"></script>
+    <script src="/vendor/lenis.min.js"></script>
+    <script src="/vendor/springer.min.js"></script>
+    <script src="/vendor/number-counter.js"></script>
+    <script src="/vendor/stack-card.min.js"></script>
+    <script src="/assets/main.js"></script>
+    
+    <!-- Scroll mitigation CSS from static site -->
+    <style id="scroll-mitigation-css">
+      html.is-scrolling * {
+        animation-play-state: paused !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+        filter: none !important;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+      .rotate-mitigation { will-change: transform; transform: translateZ(0); }
+      .filter-active { filter: none !important; }
+      .scroll-header, .header-six-scroll { transition: background-color 0.25s ease, box-shadow 0.25s ease; }
+    </style>
+    
+    <!-- Inline scripts from static site -->
+    <script>
+      (function(){
+        let scrollTimer = null;
+        const SCROLL_PAUSE_MS = 180;
+        const parallaxEls = Array.from(document.querySelectorAll('.parallax-effect, .rotate-anim, .rotate-mitigation'));
+        let ticking = false;
+
+        function onScrollStart(){ document.documentElement.classList.add('is-scrolling'); }
+        function onScrollStop(){ document.documentElement.classList.remove('is-scrolling'); }
+
+        function rafHandler(){
+          const sy = window.scrollY || window.pageYOffset;
+          parallaxEls.forEach(el => {
+            const v = parseFloat(el.dataset.parallaxValue || el.getAttribute('data-parallax-value') || 0.5);
+            const ty = Math.round((sy * v) / 100);
+            el.style.transform = 'translate3d(0,'+ty+'px,0)';
+          });
+          ticking = false;
+        }
+
+        window.addEventListener('scroll', function(){
+          onScrollStart();
+          if (!ticking) { window.requestAnimationFrame(rafHandler); ticking = true; }
+          clearTimeout(scrollTimer);
+          scrollTimer = setTimeout(onScrollStop, SCROLL_PAUSE_MS);
+        }, { passive: true });
+
+        document.querySelectorAll('figure[data-ns-animate] img, .rotate-anim').forEach(img=> img.classList.add('rotate-mitigation'));
+
+        if ('PerformanceObserver' in window) {
+          try {
+            const obs = new PerformanceObserver(list => {
+              list.getEntries().forEach(e => {
+                if (e.duration && e.duration > 50) console.warn('[LongTask]', Math.round(e.duration)+'ms', e);
+              });
+            });
+            obs.observe({entryTypes: ['longtask']});
+          } catch(e){}
+        }
+      })();
+    </script>
+    
+    <script>
+      // force light theme default (runs before styles apply)
+      try {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+      } catch(e){}
+    </script>
+  </body>
+</html>

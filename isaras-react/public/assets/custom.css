@@ -1,0 +1,11 @@
+/* set default nav offset (adjust px as needed) */
+:root {
+  --nav-offset: 88px; /* try 64-96px depending on your header height */
+}
+
+/* apply to sections and headings that will be anchor targets */
+section[id],
+[id].anchor,
+h1[id], h2[id], h3[id], .anchor-target {
+  scroll-margin-top: var(--nav-offset);
+}
