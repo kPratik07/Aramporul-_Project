@@ -102,16 +102,6 @@ isaras-react/
 ├── vite.config.ts           # Vite configuration
 └── README.md                # This file
 ```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- **Node.js** ≥ 18.0.0
-- **npm** ≥ 9.0.0 or **yarn** ≥ 3.0.0
-
 ### Installation
 
 ```bash
@@ -122,14 +112,11 @@ cd isaras-react
 # Install dependencies
 npm install
 ```
-
 ### Development
-
 ```bash
 # Start development server
 npm run dev
 ```
-
 The application will be available at `http://localhost:5173` (or the port shown in terminal).
 
 ### Production Build
@@ -141,7 +128,6 @@ npm run build
 # Preview production build locally
 npm run preview
 ```
-
 The optimized build output is in the `dist/` folder.
 
 ---
@@ -196,7 +182,6 @@ interface FAQProps {
   faqs?: FAQItem[];
 }
 ```
-
 ### 4. State Management
 
 **Approach:** React hooks with local component state.
@@ -297,11 +282,9 @@ window.scrollTo({ top: offsetPosition, behavior: "smooth" });
 **Solution:** Adjusted padding (`p-2.5`) and background-size (`auto !important`) to match original HTML structure.
 
 ---
-
 ## Component Architecture Details
 
 ### Component Hierarchy
-
 ```
 App
 ├── ErrorBoundary
@@ -327,7 +310,6 @@ App
 │           ├── About
 │           └── Terms
 ```
-
 ### Component Responsibilities
 
 | Component | Responsibility |
@@ -348,7 +330,6 @@ App
 | **Footer** | Footer links and info |
 
 ---
-
 ## TypeScript Implementation
 
 ### Type Definitions
@@ -374,60 +355,6 @@ All types are centralized in `src/types/`:
 - ✅ Generics for reusable components
 
 ---
-
-## NPM Scripts
-
-```bash
-npm run dev       # Start development server with HMR
-npm run build     # Build for production
-npm run preview   # Preview production build locally
-npm run lint      # Run ESLint on source files
-```
-
----
-
-## Deployment
-
-To deploy this application:
-
-### GitHub Pages
-```bash
-npm install --save-dev gh-pages
-# Add to package.json scripts: "deploy": "npm run build && gh-pages -d dist"
-npm run deploy
-```
-
-### Vercel
-```bash
-npm i -g vercel
-vercel
-```
-
-### Netlify
-```bash
-npm i -g netlify-cli
-netlify deploy --prod --dir=dist
-```
-
----
-
-## Future Improvements
-
-- [ ] Add unit tests with Jest/React Testing Library
-- [ ] Add E2E tests with Playwright
-- [ ] Implement lazy loading for images
-- [ ] Add error tracking (Sentry)
-- [ ] Implement analytics
-- [ ] Add PWA support
-- [ ] Optimize bundle size further
-- [ ] Add form validation and submission
-- [ ] Implement dark mode toggle
-
----
-
 ## Author
-Pratik Raj❤️
-
+Made By Pratik Raj❤️
 ---
-
-**Note:** This project was created as part of a frontend developer assessment. All code follows React and TypeScript best practices with proper component architecture and comprehensive type safety throughout.
